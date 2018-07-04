@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>index</title>
+		<link rel="stylesheet" href="css/idnex.css" />
+		<link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css" />
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/index.js"></script>
+	</head>
+
+	<body style="background: url(/img/head_bg.jpg);">
+		<div id="container">
+			<!--覆盖层开始-->
+			<div id="cover" onclick="hideAll()"></div>
+			<!--覆盖层结束-->
+
+			<!--新建列表开始-->
+			<div id="addList">
+				<form class="form-inline" method="post" action="/addList" onsubmit="return check_list()">
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputEmail3"></label>
+						<input type="text" class="form-control" name="listName" id="listName" placeholder="列表名">
+					</div>
+					<button type="submit" class="btn btn-primary">提交</button>
+				</form>
+			</div>
+			<!--新建列表结束-->
+
+			<!--添加事件开始-->
+			<div id="addThing">
+				<form class="form-horizontal" method="post" action="/addThing?list=<%=list_flag %>" onsubmit="return check_thing()">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<span id="thing_tip" style="color: orange;"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="title" id="title" placeholder="标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">时间</label>
+						<div class="col-sm-3">
+							<input type="text" style="float: left;" class="form-control" id="year" name="year" placeholder="年份">
+						</div>
+						<div class="col-sm-3">
+							<input type="text" style="float: left;" class="form-control" id="month" name="month" placeholder="月份">
+						</div>
+						<div class="col-sm-3">
+							<input type="text" style="float: left;" class="form-control" id="day" name="day" placeholder="日期">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">紧急度</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg1" value="1" checked="checked"> 一般
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg2" value="2"> 重要
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg3" value="3"> 紧急
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!--添加事件结束-->
+
+			<!--头部开始-->
+			<div id="head" class="shadow">
+				<img src="img/head_icon.jpg" class="head_icon" />
+				<a href="/logout">
+					<div class="logout">退出登陆</div>
+				</a>
+				<div class="search">
+					<form class="form-inline" method="post" action="/search" onsubmit="return check_search()">
+						<div class="form-group">
+							<label class="sr-only" for="exampleInputEmail3"></label>
+							<input type="text" style="width: 250px;" name="search" id="search_content" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">提交</button>
+					</form>
+				</div>
+			</div>
+			<!--头部结束-->
+
+			<!--导航栏开始-->
+			<div id="left" class="shadow">
+				<a href="/index?list=1"><div class="list_li" <%=list_flag==1?"id=active":'' %>>
+					我的一天
+				</div></a>
+				<a href="/index?list=2"><div class="list_li" <%=list_flag==2?"id=active":'' %>>
+					待办列表
+				</div></a>
+				<a href="/index?list=3"><div class="list_li" <%=list_flag==3?"id=active":'' %>>
+					完成列表
+				</div></a>
+				<%for(var i=0;i<lists.length;i++){ %>
+				<div class="list_li" <%=list_flag==lists[i].id?"id=active":'' %>>
+					<a href="/index?list=<%=lists[i].id %>"><div class="content"><%=lists[i].title %></div></a>
+					<a href="/deleteList?id=<%=lists[i].id %>"><div class="close"><span class="glyphicon glyphicon-remove-sign small"></span></div></a>
+				</div>
+				<%} %>
+				<div onclick="showList()" class="list_li">
+					新增列表
+				</div>
+			</div>
+			<!--导航栏结束-->
+
+			<!--事件列表开始-->
+			<div id="right">
+				<%for(var i=0;i<contents.length;i++){ %>
+				<div class="thing_li shadow">
+					<%if(list_flag != 3){ %>
+					<input onclick="deleteThing('<%=contents[i].id %>','<%=list_flag %>')" type="radio" class="thing_box" />
+					<%}else{ %>
+					<input onclick="removeThing('<%=contents[i].id %>')" type="radio" class="thing_box" />
+					<%} %>
+					<div class="title"><%=contents[i].title %></div>
+					<div class="time"><span class="glyphicon glyphicon-calendar"></span> <%=contents[i].time %></div>
+				</div>
+				<%} %>
+				<%if(contents.length == 0){ %>
+				<div class="thing_li shadow">
+					<div class="add_icon"></div>
+					<div class="add_zi">还没有添加相关计划</div>					
+				</div>
+				<%} %>
+				<%if(list_flag != 3 && list_flag != -1){ %>
+				<div onclick="showThing()" class="thing_li shadow">
+					<div class="add_icon"></div>
+					<div class="add_zi">添加新计划</div>					
+				</div>
+				<%} %>
+			</div>
+			<!--事件列表结束-->
+		</div>
+	</body>
+
+</html>

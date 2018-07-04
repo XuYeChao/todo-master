@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>index</title>
+		<link rel="stylesheet" href="css/idnex.css" />
+		<link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css" />
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/index.js"></script>
+	</head>
+
+	<body>
+		<div id="container">
+			<!--覆盖层开始-->
+			<div id="cover" onclick="hideAll()"></div>
+			<!--覆盖层结束-->
+
+			<!--新建列表开始-->
+			<div id="addList">
+				<form class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputEmail3"></label>
+						<input type="text" class="form-control" id="listName" placeholder="列表名">
+					</div>
+					<button type="submit" class="btn btn-primary">提交</button>
+				</form>
+			</div>
+			<!--新建列表结束-->
+
+			<!--添加事件开始-->
+			<div id="addThing">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<span style="color: orange;">输入不合法</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="title" id="title" placeholder="标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">时间</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="时间">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">紧急度</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg1" value="option1"> 一般
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg2" value="option2"> 重要
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="urgent" id="urg3" value="option3"> 紧急
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!--添加事件结束-->
+
+			<!--头部开始-->
+			<div id="head" class="shadow">
+				<img src="img/head_icon.jpg" class="head_icon" />
+				<a href="#">
+					<div class="logout">退出登录</div>
+				</a>
+				<div class="search">
+					<form class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="exampleInputEmail3"></label>
+							<input type="text" style="width: 200px;" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-primary">提交</button>
+					</form>
+				</div>
+			</div>
+			<!--头部结束-->
+
+			<!--导航栏开始-->
+			<div id="left" class="shadow">
+				<a href="#">
+					<div class="list_li">
+						我的一天
+					</div>
+				</a>
+				<a href="#">
+					<div class="list_li">
+						待办列表
+					</div>
+				</a>
+				<a href="#">
+					<div class="list_li bottom">
+						完成列表
+					</div>
+				</a>
+				<a href="#">
+					<div class="list_li palegoldenrod">
+						<div class="content">概率统计</div>
+						<div class="close"><span class="glyphicon glyphicon-remove-sign small"></span></div>
+					</div>
+				</a>
+				<a href="#">
+					<div class="list_li palegoldenrod">
+						<div class="content">毛概作业</div>
+						<div class="close"><span class="glyphicon glyphicon-remove-sign small"></span></div>
+					</div>
+				</a>
+				<div onclick="showList()" class="list_li top">
+					新增列表
+				</div>
+			</div>
+			<!--导航栏结束-->
+
+			<!--事件列表开始-->
+			<div id="right">
+				<div class="thing_li shadow">
+					<input type="checkbox" class="thing_box" />
+					<div class="title">好好学习</div>
+					<div class="time"><span class="glyphicon glyphicon-calendar"></span> 2018-06-22</div>
+				</div>
+
+				<div class="thing_li shadow">
+					<div class="add_icon"><span class="glyphicon glyphicon-pushpin"></span></div>
+					<div class="add_zi">还没有添加计划</div>
+				</div>
+
+				<div onclick="showThing()" class="thing_li shadow">
+					<div class="add_icon"><span class="glyphicon glyphicon-plus"></span></div>
+					<div class="add_zi">添加新计划</div>
+				</div>
+			</div>
+			<!--事件列表结束-->
+		</div>
+	</body>
+
+</html>
